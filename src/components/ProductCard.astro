@@ -1,0 +1,41 @@
+---
+interface Props {
+  emoji: string;
+  name: string;
+  subtitle: string;
+  audience: string;
+  badge?: string;
+  highlight?: boolean;
+}
+
+const { emoji, name, subtitle, audience, badge, highlight = false } = Astro.props;
+---
+
+<div class:list={[
+  "relative flex flex-col rounded-2xl border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden group cursor-default",
+  highlight
+    ? "border-[#2ECC71] bg-gradient-to-br from-[#f0fdf4] to-white shadow-lg"
+    : "border-slate-200 bg-white hover:border-[#1B4F8A]/30"
+]}>
+  {badge && (
+    <div class="absolute top-4 right-4 bg-[#2ECC71] text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
+      {badge}
+    </div>
+  )}
+
+  <div class="p-7 flex flex-col flex-1">
+    <div class="text-5xl mb-5 group-hover:scale-110 transition-transform duration-300">{emoji}</div>
+    <h3 class="font-bold text-[#1B4F8A] text-lg leading-tight mb-1">{name}</h3>
+    {subtitle && (
+      <p class="text-slate-500 text-sm mb-4">{subtitle}</p>
+    )}
+    <div class="mt-auto pt-4 border-t border-slate-100">
+      <span class="inline-flex items-center gap-1.5 text-sm text-slate-600">
+        <svg class="w-4 h-4 text-[#2ECC71] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>{audience}</span>
+      </span>
+    </div>
+  </div>
+</div>
